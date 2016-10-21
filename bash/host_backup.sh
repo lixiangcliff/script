@@ -5,7 +5,6 @@
 #
 ####################################
 
-
 # What to backup. 
 backup_files="/home /var/backups/jenkins /var/spool/mail /etc /root /boot /opt"
 
