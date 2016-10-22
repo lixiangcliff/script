@@ -9,7 +9,7 @@
 backup_files="/home /var/backups/jenkins /var/spool/mail /etc /root /boot /opt"
 
 # Where to backup to.
-dest="/media/cliff/VIDEO1/ubuntu-backup"
+dest="/media/cliff/APP_GAME/ubuntu-backup"
 
 #Delete all tar files that is older than 10 days
 rmFilename=`date --date='10 days ago' +%Y-%m-%d`
