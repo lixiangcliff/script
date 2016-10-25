@@ -36,4 +36,4 @@ echo "Backup finished"
 date
 
 # Long listing of files in $dest to check file sizes.
-ls -lh $dest
+ls -rlh $dest
