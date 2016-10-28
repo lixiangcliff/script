@@ -5,5 +5,7 @@ cd /home/cliff/repo/ccbot/
 
 tmux new -d -s ccbot "HUBOT_SLACK_TOKEN="${slack_token}" ./bin/hubot --adapter slack"
 
+echo "Start ccbot tmux session"
+
 # to get into the tmux seesion again:
 # tmux a -t ccbot
