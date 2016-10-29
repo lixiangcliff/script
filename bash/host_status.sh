@@ -9,7 +9,7 @@ free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 
 
 df -h | awk '$NF=="/"{printf "Disk   Usage: %d/%dGB (%.2f%%)\n", $3,$2,$5}'
 
-sleep 1.0
+#sleep 1.0
 
 sensors | grep 'Core 0'
 sensors | grep 'Core 1'
