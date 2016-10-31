@@ -7,5 +7,5 @@ tmux new -d -s ccbot "HUBOT_SLACK_TOKEN="${slack_token}" ./bin/hubot --adapter s
 
 echo "Start ccbot tmux session"
 
-# to get into the tmux seesion again:
+# to get into the tmux session again:
 # tmux a -t ccbot
