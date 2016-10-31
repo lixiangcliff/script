@@ -6,7 +6,7 @@
 ####################################
 
 # What to backup. 
-backup_files="/home /var/backups/jenkins /var/spool/mail /etc /root /boot /opt"
+backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /opt"
 
 # Where to backup to.
 dest="/media/cliff/APP_GAME/ubuntu-backup"
