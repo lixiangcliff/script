@@ -1,4 +1,5 @@
 #!/bin/bash
+#https://help.ubuntu.com/lts/serverguide/backup-shellscripts.html
 ####################################
 #
 # Backup to NFS mount script.
@@ -34,7 +35,7 @@ date
 echo
 
 # Backup the files using tar.
-tar --exclude=${exclude_files} -zcvf $dest/$archive_file $backup_files
+tar --exclude=${exclude_files} -zcf $dest/$archive_file $backup_files
 
 # Print end status message.
 echo
