@@ -15,9 +15,11 @@ dest="/media/cliff/APP_GAME/ubuntu-backup"
 #rmFilename=`date --date='10 days ago' +%Y-%m-%d`
 #rm $dest/"*"$rmFilename"*"
 
-#Delete all .tgz files that is older than 7 days
-find dest -type f -mtime +7 -name '*.tgz' -exec rm -- {} \;
-
+#Delete all .tgz files that is older than x days
+STORE_INTERVAL=7
+files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
+find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
+echo -e "Remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
 
 # Create archive filename.
 day=$(date +%A)
