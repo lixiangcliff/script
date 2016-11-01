@@ -34,7 +34,7 @@ date
 echo
 
 # Backup the files using tar.
-tar --exclude=${exclude_files} czf $dest/$archive_file $backup_files
+tar --exclude=${exclude_files} -zcvf $dest/$archive_file $backup_files
 
 # Print end status message.
 echo
