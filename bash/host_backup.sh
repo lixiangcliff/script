@@ -7,6 +7,7 @@
 
 # What to backup. 
 backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /opt"
+exclude_files="/home/cliff/.cache"
 
 # Where to backup to.
 dest="/media/cliff/APP_GAME/ubuntu-backup"
@@ -33,7 +34,7 @@ date
 echo
 
 # Backup the files using tar.
-tar czf $dest/$archive_file $backup_files
+tar --exclude=${exclude_files} czf $dest/$archive_file $backup_files
 
 # Print end status message.
 echo
