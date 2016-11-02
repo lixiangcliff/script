@@ -31,6 +31,7 @@ archive_file="$hostname-$timestamp.tgz"
 
 # Print start status message.
 echo "Backing up $backup_files to $dest/$archive_file"
+echo "Excluding dirs: $exclude_files"
 date
 echo
 
