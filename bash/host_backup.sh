@@ -11,7 +11,7 @@ backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /r
 exclude_files="/home/cliff/.cache"
 
 # Where to backup to.
-dest="/media/cliff/APP_GAME/ubuntu-backup"
+dest="/media/cliff/FLASHDISK/ubuntu-backup"
 
 #Delete all tar files that is older than 10 days
 #rmFilename=`date --date='10 days ago' +%Y-%m-%d`
