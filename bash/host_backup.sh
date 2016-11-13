@@ -6,8 +6,11 @@
 #
 ####################################
 
+#save installed package list
+dpkg --get-selections | grep -v deinstall > /home/cliff/installed_packages.txt
+
 # What to backup. 
-backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /opt"
+backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot"
 exclude_files="/home/cliff/.cache"
 
 # Where to backup to.
