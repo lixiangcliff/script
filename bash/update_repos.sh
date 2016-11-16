@@ -28,13 +28,13 @@ do
         echo "Already up-to-date"
     else
         #echo "Need to pull"
-	    echo -e "Start updating repo under: "${dir}"\n"
+	    echo -e "\nStart updating repo under: "${dir}"\n"
 
         git pull -q
 
         git show
 
-	    echo -e "Finish updating repo under: "${dir}"\n"
+	    echo -e "\nFinish updating repo under: "${dir}"\n"
     fi
 
     echo -e "\n"
