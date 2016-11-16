@@ -27,11 +27,11 @@ do
         echo "Already up-to-date"
     else
         #echo "Need to pull"
-        echo -e "\n"
-        git show
-        echo -e "\n"
 
         git pull -q
+
+        git show
+
 	    echo -e "Updated repo under: "${dir}
     fi
 
