@@ -9,6 +9,8 @@ for dir in ${dirs}
 #	git pull
 #	echo -e "Updated repo under: "${dir}"\n"
 #done
+# http://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
+
 do
 	cd ${dir};
 	echo -e "\nUpdating repo under: "${dir}
@@ -20,11 +22,10 @@ do
     UPSTREAM=${1:-'@{u}'}
     LOCAL=$(git rev-parse @)
     REMOTE=$(git rev-parse "$UPSTREAM")
-    BASE=$(git merge-base @ "$UPSTREAM")
 
     if [ $LOCAL = $REMOTE ]; then
         echo "Already up-to-date"
-    elif [ $LOCAL = $BASE ]; then
+    else
         #echo "Need to pull"
         echo -e "\n"
         git show
@@ -32,10 +33,6 @@ do
 
         git pull -q
 	    echo -e "Updated repo under: "${dir}
-    elif [ $REMOTE = $BASE ]; then
-        echo "Need to push"
-    else
-        echo "Diverged"
     fi
 
     echo -e "\n"
