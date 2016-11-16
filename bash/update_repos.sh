@@ -26,14 +26,15 @@ do
     if [ $LOCAL = $REMOTE ]; then
         echo "Already up-to-date"
     else
-        #echo "Need to pull"
-	    echo -e "\nStart updating repo under: "${dir}"\n"
+	    #echo -e "\nStart updating repo under: "${dir}"\n"
+	    echo "\n\033[43m Starting updating repo under: "${dir}" \033[0m"
 
         git pull -q
 
         git show
 
-	    echo -e "\nFinish updating repo under: "${dir}"\n"
+	    #echo -e "\nFinish updating repo under: "${dir}"\n"
+	    echo "\n\033[44m Finish updating repo under: "${dir}" \033[0m"
     fi
     echo -e "\n"
 done
