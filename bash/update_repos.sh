@@ -11,6 +11,7 @@ for dir in ${dirs}
 #done
 
 # http://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
+# http://testerfenster.com/blog/jenkins-tutorials-add-color-to-console-output/
 
 do
 	cd ${dir};
