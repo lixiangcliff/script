@@ -36,6 +36,11 @@ do
 
 	    #echo -e "\nFinish updating repo under: "${dir}"\n"
 	    echo "\033[44m Finish updating repo under: "${dir}"\033[0m"
+
+	    echo "\033[43m Yellow \033[0m"
+
+        echo "\033[44m Blue \033[0m"
+
     fi
     echo -e "\n"
 done
