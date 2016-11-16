@@ -17,7 +17,6 @@ do
 	echo -e "\nChecking repo under: "${dir}
 	git checkout -- .
     #echo -e "Discarded all local changes"
-
     git remote update
 
     UPSTREAM=${1:-'@{u}'}
