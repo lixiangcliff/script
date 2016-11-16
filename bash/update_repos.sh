@@ -11,7 +11,7 @@ for dir in ${dirs}
 #done
 do
 	cd ${dir};
-	echo -e "Updating repo under: "${dir}"\n"
+	echo -e "\nUpdating repo under: "${dir}
 	git checkout -- .
     #echo -e "Discarded all local changes"
 
@@ -38,5 +38,4 @@ do
     fi
 
     echo -e "\n"
-
 done
