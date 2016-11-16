@@ -26,7 +26,6 @@ do
         echo "Already up-to-date"
     elif [ $LOCAL = $BASE ]; then
         #echo "Need to pull"
-
         echo -e "\n"
         git show
         echo -e "\n"
