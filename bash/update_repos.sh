@@ -36,6 +36,5 @@ do
 
 	    echo -e "\nFinish updating repo under: "${dir}"\n"
     fi
-
     echo -e "\n"
 done
