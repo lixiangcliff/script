@@ -13,10 +13,6 @@ for dir in ${dirs}
 # http://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 # http://testerfenster.com/blog/jenkins-tutorials-add-color-to-console-output/
 
-echo "\033[43m Yellow \033[0m"
-
-echo "\033[44m Blue \033[0m"
-
 
 do
 	cd ${dir};
@@ -45,3 +41,11 @@ do
     fi
     echo -e "\n"
 done
+
+printf "\e[31mHello\e[0m\n"
+printf "\033[31mHello\033[0m\n"
+printf "\x1b[31mHello\x1b[0m\n"
+
+
+echo "\033[43m Yellow \033[0m"
+echo "\033[44m Blue \033[0m"
