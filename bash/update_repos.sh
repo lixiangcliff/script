@@ -25,7 +25,6 @@ do
        	printf "\e[42mChange details:                       \e[0m\n"
         git show
 	    printf "\e[44mFinish updating repo under: "${dir}"\e[0m\n"
-
     fi
     echo -e "\n"
 done
