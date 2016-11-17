@@ -29,19 +29,22 @@ do
         echo "Already up-to-date"
     else
 	    #echo -e "\nStart updating repo under: "${dir}"\n"
-	    echo "\033[43m Starting updating repo under: "${dir}"\033[0m"
-
+	    #echo "\033[43m Starting updating repo under: "${dir}"\033[0m"
+	    printf "\e[43mStart updating repo under: "${dir}"\e[0m\n"
         git pull -q
 
         git show
 
 	    #echo -e "\nFinish updating repo under: "${dir}"\n"
-	    echo "\033[44m Finish updating repo under: "${dir}"\033[0m"
+	    #echo "\033[44m Finish updating repo under: "${dir}"\033[0m"
+	    printf "\e[44mFinish updating repo under: "${dir}"\e[0m\n"
 
     fi
     echo -e "\n"
 done
 
-printf "\e[31mHello\e[0m\n"
-printf "\033[31mHello\033[0m\n"
-printf "\x1b[31mHello\x1b[0m\n"
+printf "\e[44mHello\e[0m\n"
+printf "\e[44mFinish updating repo under: "${dirs}"\e[0m\n"
+
+#printf "\033[31mHello\033[0m\n"
+#printf "\x1b[31mHello\x1b[0m\n"
