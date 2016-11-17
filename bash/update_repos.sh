@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
 
-dirs=$(ls -d /home/cliff/repo/*)
-for dir in ${dirs}
-#do
-#	cd ${dir};
-#	git checkout -- .
-#    echo -e "Discarded all local changes"
-#	git pull
-#	echo -e "Updated repo under: "${dir}"\n"
-#done
-
 # http://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 # http://testerfenster.com/blog/jenkins-tutorials-add-color-to-console-output/
+# https://github.com/dblock/jenkins-ansicolor-plugin
 
 
+dirs=$(ls -d /home/cliff/repo/*)
+for dir in ${dirs}
 do
 	cd ${dir};
 	echo -e "\nChecking repo under: "${dir}
@@ -43,8 +36,3 @@ do
     echo -e "\n"
 done
 
-#printf "\e[44mHello\e[0m\n"
-#printf "\e[44mFinish updating repo under: "${dirs}"\e[0m\n"
-
-#printf "\033[31mHello\033[0m\n"
-#printf "\x1b[31mHello\x1b[0m\n"
