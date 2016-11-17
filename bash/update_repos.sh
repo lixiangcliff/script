@@ -4,14 +4,13 @@
 # http://testerfenster.com/blog/jenkins-tutorials-add-color-to-console-output/
 # https://github.com/dblock/jenkins-ansicolor-plugin
 
-
 dirs=$(ls -d /home/cliff/repo/*)
 for dir in ${dirs}
 do
 	cd ${dir};
 	echo -e "\nChecking repo under: "${dir}
 	git checkout -- .
-    #echo -e "Discarded all local changes"
+    echo -e "Discarded all local changes"
     git remote update
 
     UPSTREAM=${1:-'@{u}'}
