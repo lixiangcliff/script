@@ -32,6 +32,10 @@ hostname=$(hostname -s)
 timestamp=`date +"%Y-%m-%d_%H-%M-%S"`
 archive_file="$hostname-$timestamp.tgz"
 
+# list large files:
+echo "Top largest files:"
+du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
+
 # Print start status message.
 echo "Backing up $backup_files to $dest/$archive_file"
 echo "Excluding dirs: $exclude_files"
