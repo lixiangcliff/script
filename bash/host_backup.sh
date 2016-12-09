@@ -24,6 +24,7 @@ dest="/media/cliff/FLASHDISK/ubuntu-backup"
 STORE_INTERVAL=7
 files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
+echo
 echo -e "Remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
 
 # Create archive filename.
@@ -33,10 +34,12 @@ timestamp=`date +"%Y-%m-%d_%H-%M-%S"`
 archive_file="$hostname-$timestamp.tgz"
 
 # list large files:
+echo
 echo "Top largest files:"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
+echo
 echo "Backing up $backup_files to $dest/$archive_file"
 echo "Excluding dirs: $exclude_files"
 date
