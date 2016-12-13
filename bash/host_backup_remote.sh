@@ -21,14 +21,14 @@ dest="/extdisks/sda5/ubuntu-backup"
 #rm $dest/"*"$rmFilename"*"
 
 #Delete all .tgz files that is older than x days
-ssh root@miwifi
+#ssh root@miwifi
 #cd ${dest}
-STORE_INTERVAL=7
-files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
+#STORE_INTERVAL=7
+#files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 #find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-echo
-echo -e "Remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
-exit
+#echo
+#echo -e "Remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
+#exit
 
 # Create archive filename.
 day=$(date +%A)
@@ -49,7 +49,10 @@ date
 echo
 
 # Backup the files using tar.
-tar --exclude=${exclude_files} -zcf $backup_files | ssh root@miwifi "cat > "$dest/$archive_file
+temp_dir="/home/cliff/temp/"
+tar --exclude=${exclude_files} -zcf $temp_dir$archive_file $backup_files
+scp $temp_dir$archive_file "root@miwifi":$dest
+rm $temp_dir"/*"
 
 # Print end status message.
 echo
@@ -58,3 +61,4 @@ date
 
 # Long listing of files in $dest to check file sizes.
 ls -rlh $dest
+ssh root@miwifi "ls -rlh "$dest
