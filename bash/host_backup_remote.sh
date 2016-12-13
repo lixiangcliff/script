@@ -1,4 +1,5 @@
 #!/bin/bash
+#this script is to make backup to remote host
 #https://help.ubuntu.com/lts/serverguide/backup-shellscripts.html
 ####################################
 #
