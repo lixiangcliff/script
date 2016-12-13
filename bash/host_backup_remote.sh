@@ -7,6 +7,10 @@
 #
 ####################################
 
+#add ssh key for miwifi
+eval "$(ssh-agent -s)"
+ssh-add /home/cliff/.ssh/id_rsa_miwifi
+
 #save installed package list
 dpkg --get-selections | grep -v deinstall > /home/cliff/installed_packages.txt
 
