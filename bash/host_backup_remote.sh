@@ -52,7 +52,7 @@ echo
 temp_dir="/home/cliff/temp/"
 tar --exclude=${exclude_files} -zcf $temp_dir$archive_file $backup_files
 scp $temp_dir$archive_file "root@miwifi":$dest
-rm $temp_dir"/*"
+rm $temp_dir$archive_file
 
 # Print end status message.
 echo
