@@ -65,4 +65,4 @@ echo "Backup finished"
 date
 
 # Long listing of files in $dest to check file sizes.
-ssh root@miwifi "ls -rlh "$dest
+ssh root@miwifi "du -sh "$dest"; ls -rlh "$dest
