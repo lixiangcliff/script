@@ -41,15 +41,12 @@ timestamp=`date +"%Y-%m-%d_%H-%M-%S"`
 archive_file="$hostname-$timestamp.tgz"
 
 # list large files:
-echo
-echo "Top largest size dirs to backup:"
+printf "\nTop largest size dirs to backup:"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
-echo
-echo "Backing up $backup_files to $dest$archive_file"
-echo "Excluding dirs: $exclude_files"
-echo
+printf "\nBacking up $backup_files to $dest$archive_file"
+printf "Excluding dirs: $exclude_files\n"
 
 # Backup the files locally and scp to remote.
 tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
@@ -57,8 +54,7 @@ scp $local_dest$archive_file "root@miwifi":$dest
 
 
 # Print end status message.
-echo
-echo "Backup finished"
+printf "\nBackup finished"
 
 # Long listing of files in $dest to check file sizes.
 printf "\nOn local:"
