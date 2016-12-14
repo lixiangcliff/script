@@ -43,7 +43,7 @@ archive_file="$hostname-$timestamp.tgz"
 
 # list large files:
 echo
-echo "Top largest files:"
+echo "Top largest size dirs:"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
