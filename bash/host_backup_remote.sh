@@ -20,7 +20,7 @@ local_dest="/var/backups/ubuntu-backup/"
 
 # What to backup. 
 backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /var/www"
-exclude_files="/home/cliff/.cache "$local_dest
+exclude_files="/home/cliff/.cache "
 
 #Delete all tar files that is older than 10 days
 #rmFilename=`date --date='10 days ago' +%Y-%m-%d`
