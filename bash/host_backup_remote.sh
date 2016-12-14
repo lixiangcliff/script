@@ -32,8 +32,7 @@ exclude_files="/home/cliff/.cache "
 STORE_INTERVAL=7
 files_to_rm=`find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-echo
-echo -e "On local, remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
+printf "\nOn local, remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
 
 # Create archive filename.
 day=$(date +%A)
@@ -62,7 +61,7 @@ echo
 echo "Backup finished"
 
 # Long listing of files in $dest to check file sizes.
-echo -e "\nOn local:"
+printf "\nOn local:"
 ls -rlh $local_dest
-echo -e "\nOn remote:"
+printf "\nOn remote:"
 ssh root@miwifi "du -sh "$dest"; ls -rlh "$dest
