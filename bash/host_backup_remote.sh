@@ -15,8 +15,8 @@ ssh-add /home/cliff/.ssh/id_rsa_miwifi
 dpkg --get-selections | grep -v deinstall > /home/cliff/installed_packages.txt
 
 # Where to backup to.
-dest="/extdisks/sda5/ubuntu-backup"
-local_dest="/home/cliff/ubuntu-backup"
+dest="/extdisks/sda5/ubuntu-backup/"
+local_dest="/var/backups/ubuntu-backup/"
 
 # What to backup. 
 backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /var/www"
@@ -48,7 +48,7 @@ du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
 echo
-echo "Backing up $backup_files to $dest/$archive_file"
+echo "Backing up $backup_files to $dest$archive_file"
 echo "Excluding dirs: $exclude_files"
 echo
 
