@@ -41,7 +41,7 @@ timestamp=`date +"%Y-%m-%d_%H-%M-%S"`
 archive_file="$hostname-$timestamp.tgz"
 
 # list large files:
-printf "\nTop largest size dirs to backup:"
+printf "\nTop largest size dirs to backup:\n"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
