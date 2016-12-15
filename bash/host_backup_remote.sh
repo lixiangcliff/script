@@ -32,7 +32,7 @@ exclude_files="/home/cliff/.cache "
 STORE_INTERVAL=7
 files_to_rm=`find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-printf "\nOn local, remove files older than "${STORE_INTERVAL}" days: "${files_to_rm}
+printf "\nOn local, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}
 
 # Create archive filename.
 day=$(date +%A)
@@ -46,18 +46,17 @@ du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
 printf "\nBacking up $backup_files to $dest$archive_file"
-printf "Excluding dirs: $exclude_files\n"
+printf "\nExcluding dirs: $exclude_files\n"
 
 # Backup the files locally and scp to remote.
 tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 scp $local_dest$archive_file "root@miwifi":$dest
-
-
-# Print end status message.
-printf "\nBackup finished"
 
 # Long listing of files in $dest to check file sizes.
 printf "\nOn local:"
 ls -rlh $local_dest
 printf "\nOn remote:"
 ssh root@miwifi "du -sh "$dest"; ls -rlh "$dest
+
+# Print end status message.
+printf "\nBackup finished\n"
