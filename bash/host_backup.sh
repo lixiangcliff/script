@@ -43,7 +43,7 @@ printf "\nTop largest size dirs to backup:\n"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
-printf "\nBacking up $backup_files $local_dest$archive_file to and $dest$archive_file"
+printf "\nBacking up $backup_files to $local_dest$archive_file and $dest$archive_file"
 printf "\nExcluding dirs: $exclude_files\n\n"
 
 # Backup the files using tar.
