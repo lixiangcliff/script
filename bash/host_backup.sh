@@ -51,9 +51,9 @@ tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 cp $local_dest$archive_file $dest$archive_file
 
 # Long listing of files in $dest to check file sizes.
-printf "\nOn local:"
+printf "\nOn local: "$local_dest"\n"
 ls -rlh $local_dest
-printf "\nOn external:"
+printf "\nOn external: "$dest"\n"
 ls -rlh $dest
 
 # Print end status message.
