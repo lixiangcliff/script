@@ -14,7 +14,7 @@ backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /r
 exclude_files="/home/cliff/.cache"
 
 # Where to backup to.
-dest="/media/cliff/FLASHDISK/ubuntu-backup"
+dest="/media/cliff/FLASHDISK/ubuntu-backup/"
 local_dest="/var/backups/ubuntu-backup/"
 
 #Delete all tar files that is older than 10 days
@@ -26,11 +26,11 @@ STORE_INTERVAL=7
 
 files_to_rm=`find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-printf "\nOn local, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}
+printf "\nOn local, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
 
 files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-printf "\nOn external, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}
+printf "\nOn external, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
 
 # Create archive filename.
 day=$(date +%A)
