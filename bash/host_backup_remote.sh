@@ -14,13 +14,13 @@ ssh-add /home/cliff/.ssh/id_rsa_miwifi
 #save installed package list
 dpkg --get-selections | grep -v deinstall > /home/cliff/installed_packages.txt
 
+# What to backup.
+backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /var/www"
+exclude_files="/home/cliff/.cache "
+
 # Where to backup to.
 dest="/extdisks/sda5/ubuntu-backup/"
 local_dest="/var/backups/ubuntu-backup/"
-
-# What to backup. 
-backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /root /boot /var/www"
-exclude_files="/home/cliff/.cache "
 
 #Delete all tar files that is older than 10 days
 #rmFilename=`date --date='10 days ago' +%Y-%m-%d`
@@ -45,7 +45,7 @@ printf "\nTop largest size dirs to backup:\n"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
-printf "\nBacking up $backup_files to $dest$archive_file"
+printf "\nBacking up $backup_files $local_dest$archive_file to and $dest$archive_file"
 printf "\nExcluding dirs: $exclude_files\n\n"
 
 # Backup the files locally and scp to remote.
