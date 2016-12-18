@@ -26,11 +26,11 @@ STORE_INTERVAL=7
 
 files_to_rm=`find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-printf "\nOn local, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
+printf "\nOn local: "$local_dest" remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
 
 files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-printf "\nOn external, remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
+printf "\nOn external, "$dest" remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
 
 # Create archive filename.
 day=$(date +%A)
@@ -51,7 +51,7 @@ tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 cp $local_dest$archive_file $dest$archive_file
 
 # Long listing of files in $dest to check file sizes.
-printf "\nOn local: "$local_dest"\n"
+printf "\n\nOn local: "$local_dest"\n"
 ls -rlh $local_dest
 printf "\nOn external: "$dest"\n"
 ls -rlh $dest
