@@ -25,7 +25,7 @@ if [[ $statusCode != "403" ]]; then
     get_status_code
     if [[ $statusCode != "403" ]]; then
         $cur_dir/post_to_slack.sh -t "After restarting, Jenkins is still Down!" -b "Response status code is: ${statusCode}." -c "ccjenkins" -u ${webhook_url} -r "danger"
-    else:
+    else
         $cur_dir/post_to_slack.sh -t "Jenkins is up now!" -b "After restarting jenkins service is running again" -c "ccjenkins" -u ${webhook_url} -r "good"
     fi
 fi
