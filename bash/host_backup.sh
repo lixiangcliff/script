@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 #https://help.ubuntu.com/lts/serverguide/backup-shellscripts.html
 ####################################
 #
@@ -14,8 +15,10 @@ backup_files="/home /var/backups/jenkins /var/spool/mail /var/spool/cron /etc /r
 exclude_files="/home/cliff/.cache"
 
 # Where to backup to.
-dest="/media/cliff/FLASHDISK/ubuntu-backup/"
 local_dest="/var/backups/ubuntu-backup/"
+external_dest="/media/cliff/FLASHDISK/ubuntu-backup/"
+remote_dest="/extdisks/sda5/ubuntu-backup"
+BANDWIDTH_LIMIT_KBPS=200
 
 #Delete all tar files that is older than 10 days
 #rmFilename=`date --date='10 days ago' +%Y-%m-%d`
@@ -28,9 +31,9 @@ files_to_rm=`find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
 find ${local_dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
 printf "\nOn local: "$local_dest" remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
 
-files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
-find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
-printf "\nOn external, "$dest" remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
+#files_to_rm=`find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz'`
+#find ${dest} -type f -mtime +${STORE_INTERVAL} -name '*.tgz' -exec rm -- {} \;
+#printf "\nOn external, "$dest" remove files older than "${STORE_INTERVAL}" days: \n"${files_to_rm}"\n"
 
 # Create archive filename.
 day=$(date +%A)
@@ -43,18 +46,26 @@ printf "\nTop largest size dirs to backup:\n"
 du -Sh  $backup_files | sort -hr | head -30 | grep -v $exclude_files
 
 # Print start status message.
-printf "\nBacking up $backup_files to $local_dest$archive_file and $dest$archive_file"
+printf "\nBacking up $backup_files to $local_dest$archive_file , $external_dest$archive_file and $remote_dest$archive_file"
 printf "\nExcluding dirs: $exclude_files\n\n"
 
-# Backup the files using tar.
+# Backup the files in local using tar.
 tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
-cp $local_dest$archive_file $dest$archive_file
+#cp $local_dest$archive_file $dest$archive_file
+
+#rsync to external
+rsync -avzhe ssh --progress $local_dest $external_dest
+
+#rsync to remote
+rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -avzhe ssh --progress $local_dest root@miwifi:$remote_dest
 
 # Long listing of files in $dest to check file sizes.
 printf "\n\nOn local: "$local_dest"\n"
 ls -rlh $local_dest
-printf "\nOn external: "$dest"\n"
-ls -rlh $dest
+printf "\nOn external: "$external_dest"\n"
+ls -rlh $external_dest
+printf "\nOn remote: "$remote_dest"\n"
+ssh root@miwifi "du -sh "$remote_dest"; ls -rlh "$remote_dest
 
 # Print end status message.
 printf "\nBackup finished\n"
