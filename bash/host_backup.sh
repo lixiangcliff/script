@@ -55,11 +55,11 @@ tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 
 #rsync to external
 printf "\nrsync to external: \n"
-rsync -avzhe ssh --progress $local_dest $external_dest
+rsync -rltgoDvzhe ssh --progress $local_dest $external_dest
 
 #rsync to remote
 printf "\nrsync to remote: \n"
-rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -avzhe ssh --progress $local_dest root@miwifi:$remote_dest
+rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltgoDvzhe ssh --progress $local_dest root@miwifi:$remote_dest
 
 # Long listing of files in $dest to check file sizes.
 printf "\n\nOn local: "$local_dest"\n"
