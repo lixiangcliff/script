@@ -60,7 +60,7 @@ printf "\nExcluding dirs: $exclude_files\n\n"
 
 #rsync to external (ignore owner, group and permission)
 printf "\nrsync to external: \n"
-rsync -rltvzhe ssh --progress $local_dest $external_dest
+rsync -rltvzhe ssh --progress $local_dest $external_dest --delete
 
 #rsync to remote (ignore owner, group and permission)
 printf "\nrsync to remote: \n"
