@@ -7,9 +7,10 @@
 #
 ####################################
 
-#add ssh key for miwifi
+#add ssh key for root against miwifi
+ssh-keygen -R miwifi
 eval "$(ssh-agent -s)"
-ssh-add /home/cliff/.ssh/id_rsa_miwifi
+ssh-add /root/.ssh/id_rsa_miwifi
 
 #save installed package list
 dpkg --get-selections | grep -v deinstall > /home/cliff/installed_packages.txt
@@ -63,15 +64,14 @@ rsync -rltvzhe ssh --progress $local_dest $external_dest
 
 #rsync to remote (ignore owner, group and permission)
 printf "\nrsync to remote: \n"
-rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe ssh --progress $local_dest root@miwifi:$remote_dest
-
+rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe "ssh -o 'StrictHostKeyChecking no'" --progress  $local_dest root@miwifi:$remote_dest
 # Long listing of files in $dest to check file sizes.
 printf "\n\nOn local: "$local_dest"\n"
 ls -rlh $local_dest
 printf "\nOn external: "$external_dest"\n"
 ls -rlh $external_dest
 printf "\nOn remote: "$remote_dest"\n"
-ssh root@miwifi "du -sh "$remote_dest"; ls -rlh "$remote_dest
+ssh -o "StrictHostKeyChecking no" root@miwifi "du -sh "$remote_dest"; ls -rlh "$remote_dest
 
 # Print end status message.
 printf "\nBackup finished\n"
