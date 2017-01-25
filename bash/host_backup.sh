@@ -7,6 +7,10 @@
 #
 ####################################
 
+#add ssh key for miwifi
+eval "$(ssh-agent -s)"
+ssh-add /home/cliff/.ssh/id_rsa_miwifi
+
 #save installed package list
 dpkg --get-selections | grep -v deinstall > /home/cliff/installed_packages.txt
 
@@ -53,11 +57,11 @@ printf "\nExcluding dirs: $exclude_files\n\n"
 tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 #cp $local_dest$archive_file $dest$archive_file
 
-#rsync to external
+#rsync to external (ignore owner, group and permission)
 printf "\nrsync to external: \n"
 rsync -rltvzhe ssh --progress $local_dest $external_dest
 
-#rsync to remote
+#rsync to remote (ignore owner, group and permission)
 printf "\nrsync to remote: \n"
 rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe ssh --progress $local_dest root@miwifi:$remote_dest
 
