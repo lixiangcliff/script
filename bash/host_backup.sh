@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 #https://help.ubuntu.com/lts/serverguide/backup-shellscripts.html
 ####################################
