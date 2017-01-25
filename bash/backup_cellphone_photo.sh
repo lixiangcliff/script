@@ -23,8 +23,8 @@ rsync_dirs() {
 }
 
 rsync_dirs "/extdisks/sda5/*Cliff*/*/*" "/var/backups/photos/phone/cliff"
-#rsync_dirs "/extdisks/sda5/*zhe*/*/*" "/var/backups/photos/phone/christina"
-#rsync_dirs "/extdisks/sda5/*Min*/*/*" "/var/backups/photos/phone/min"
+rsync_dirs "/extdisks/sda5/*zhe*/*/*" "/var/backups/photos/phone/christina"
+rsync_dirs "/extdisks/sda5/*Min*/*/*" "/var/backups/photos/phone/min"
 
 if [ "$is_updated" = false ] ; then
     printf "\e[41mNo new photos have been transferred! \e[0m\n"
