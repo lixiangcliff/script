@@ -64,7 +64,7 @@ rsync -rltvzhe ssh --progress $local_dest $external_dest
 
 #rsync to remote (ignore owner, group and permission)
 printf "\nrsync to remote: \n"
-rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe "ssh -o 'StrictHostKeyChecking no'" --progress  $local_dest root@miwifi:$remote_dest
+rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe "ssh -o 'StrictHostKeyChecking no'" --progress  $local_dest root@miwifi:$remote_dest --delete
 # Long listing of files in $dest to check file sizes.
 printf "\n\nOn local: "$local_dest"\n"
 ls -rlh $local_dest
