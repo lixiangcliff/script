@@ -17,7 +17,7 @@ exclude_files="/home/cliff/.cache"
 # Where to backup to.
 local_dest="/var/backups/ubuntu-backup/"
 external_dest="/media/cliff/FLASHDISK/ubuntu-backup/"
-remote_dest="/extdisks/sda5/ubuntu-backup"
+remote_dest="/extdisks/sda5/ubuntu-backup/"
 BANDWIDTH_LIMIT_KBPS=200
 
 #Delete all tar files that is older than 10 days
