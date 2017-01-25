@@ -55,7 +55,7 @@ printf "\nBacking up $backup_files to $local_dest$archive_file , $external_dest$
 printf "\nExcluding dirs: $exclude_files\n\n"
 
 # Backup the files in local using tar.
-#tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
+tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 #cp $local_dest$archive_file $dest$archive_file
 
 #rsync to external (ignore owner, group and permission)
