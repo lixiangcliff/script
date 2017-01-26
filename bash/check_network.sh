@@ -5,4 +5,6 @@ status_code=$(curl -I -s -L "https://www.google.com/" | grep "HTTP/1.1" | awk '{
 if [[ $status_code != "200" ]]; then
     printf "Network is down!"
     exit 1
+else
+    printf "Network is OK!"
 fi
