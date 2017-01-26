@@ -60,11 +60,11 @@ tar --exclude=${exclude_files} -zcf $local_dest$archive_file $backup_files
 
 #rsync to external (ignore owner, group and permission)
 printf "\nrsync to external: \n"
-rsync -rltvzhe ssh --progress $local_dest $external_dest --delete
+rsync -rltvzhe ssh $local_dest $external_dest --delete
 
 #rsync to remote (ignore owner, group and permission)
 printf "\nrsync to remote: \n"
-rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe "ssh -o 'StrictHostKeyChecking no'" --progress  $local_dest root@miwifi:$remote_dest --delete
+rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -rltvzhe "ssh -o 'StrictHostKeyChecking no'" $local_dest root@miwifi:$remote_dest --delete
 # Long listing of files in $dest to check file sizes.
 printf "\n\nOn local: "$local_dest"\n"
 ls -rlh $local_dest

@@ -12,7 +12,7 @@ rsync_dirs() {
     src_dir=$1
     dest_dir=$2
     printf "\e[43mrsync files from: "$src_dir" to $dest_dir \e[0m\n"
-    rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -avzhe ssh --progress root@miwifi:$src_dir $dest_dir --log-file=$LOG_PATH
+    rsync --bwlimit=$BANDWIDTH_LIMIT_KBPS -avzhe ssh root@miwifi:$src_dir $dest_dir --log-file=$LOG_PATH
     printf "\e[42mrsync done!                               \e[0m\n"
     line_count=$(wc -l < $LOG_PATH)
     if [ "$line_count" -gt 3 ] ; then
