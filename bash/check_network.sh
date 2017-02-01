@@ -21,5 +21,7 @@ if [[ $status_code != "200" ]]; then
         printf "\nAfter restarting, network is OK now!\n"
     fi
 else
-    printf "\nNetwork is OK!\n\n"
+    printf "\nNetwork is OK!\n"
 fi
+
+printf "\n"
