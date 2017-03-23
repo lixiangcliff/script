@@ -2,9 +2,9 @@
 
 cur_dir=`dirname $0`
 
-public_ip=$(cat /home/cliff/.secret/public_ip)
-jenkins_port=$(cat /home/cliff/.secret/jenkins_port)
-webhook_url=$(cat /home/cliff/.secret/webhook_url)
+public_ip=$(source $cur_dir/get_property.sh /home/cliff/.secret/properties public_ip)
+jenkins_port=$(source $cur_dir/get_property.sh /home/cliff/.secret/properties jenkins_port)
+webhook_url=$(source $cur_dir/get_property.sh /home/cliff/.secret/properties webhook_url)
 
 status_code=""
 

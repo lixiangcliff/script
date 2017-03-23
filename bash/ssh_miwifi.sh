@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-miwifi_pw=$(cat /home/cliff/.secret/miwifi_pw)
+cur_dir=`dirname $0`
+
+miwifi_pw=$(source $cur_dir/get_property.sh /home/cliff/.secret/properties miwifi_pw)
 miwifi_ip=$(netstat -r -n | awk 'FNR == 3 {print $2}')
 
 sshpass -p ${miwifi_pw} ssh root@${miwifi_ip}
