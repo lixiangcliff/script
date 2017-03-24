@@ -11,7 +11,7 @@ manage_path="/home/cliff/repo/ccfam/src/manage.py runserver "
 #tmux new -d -s django $manage_path$django_ip":"$django_port
 #echo "Start django tmux session"
 
-python $manage_path$django_ip":"$django_port
+python3 $manage_path$django_ip":"$django_port
 
 # to get into the tmux session again:
 # tmux a -t django
