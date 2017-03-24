@@ -8,7 +8,7 @@ django_port=$(source $cur_dir/get_property.sh /home/cliff/.secret/properties dja
 manage_path="/home/cliff/repo/ccfam/src/manage.py runserver "
 
 
-#tmux new -d -s django python3  $manage_path$django_ip":"$django_port
+tmux new -d -s django python3 $manage_path$django_ip":"$django_port
 echo "Start django tmux session"
 
 
