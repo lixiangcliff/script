@@ -41,7 +41,7 @@ def get_episode_number(file):
 
 def main():
     for file in os.listdir(dir_path):
-        if file.endswith(".mp4"):
+        if file.lower().endswith(".mp4"):
             # 粉红猪小妹 第4集 Peppa.Pig.S01.2004.WEB-DL.EP04.1080P.H265.AAC-JBY@WEBHD.mp4
             old_name = os.path.join(dir_path, file)
             new_name = os.path.join(dir_path, get_modified_peppa_name(file))
