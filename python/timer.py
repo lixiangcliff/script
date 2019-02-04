@@ -11,10 +11,10 @@ EASY_QUESTION_COUNT_PER_SESSION = 3
 MEDIUM_QUESTION_COUNT_PER_SESSION = 2
 HARD_QUESTION_COUNT_PER_SESSION = 1
 
-EASY_QUESTION_DURATION = 0.05
-MEDIUM_QUESTION_DURATION = 0.25
-HARD_QUESTION_DURATION = 0.50
-BREAK_DURATION = 0.10
+EASY_QUESTION_DURATION_IN_MINUTE = 15
+MEDIUM_QUESTION_DURATION_IN_MINUTE = 25
+HARD_QUESTION_DURATION_IN_MINUTE = 50
+BREAK_DURATION_IN_MINUTE = 10
 
 SESSION_BELL_COUNT = 3
 BREAK_BELL_COUNT = 5
@@ -72,21 +72,21 @@ def ring_bell(bell_count):
 
 def easy_session():
     for i in range(EASY_QUESTION_COUNT_PER_SESSION):
-        session("Easy_" + str(i + 1), 'green', EASY_QUESTION_DURATION, SESSION_BELL_COUNT)
+        session("Easy_" + str(i + 1), 'green', EASY_QUESTION_DURATION_IN_MINUTE, SESSION_BELL_COUNT)
 
 
 def medium_session():
     for i in range(MEDIUM_QUESTION_COUNT_PER_SESSION):
-        session("Medium_" + str(i + 1), 'yellow', MEDIUM_QUESTION_DURATION, SESSION_BELL_COUNT)
+        session("Medium_" + str(i + 1), 'yellow', MEDIUM_QUESTION_DURATION_IN_MINUTE, SESSION_BELL_COUNT)
 
 
 def hard_session():
     for i in range(HARD_QUESTION_COUNT_PER_SESSION):
-        session("Hard_" + str(i + 1), 'red', HARD_QUESTION_DURATION, SESSION_BELL_COUNT)
+        session("Hard_" + str(i + 1), 'red', HARD_QUESTION_DURATION_IN_MINUTE, SESSION_BELL_COUNT)
 
 
 def break_session():
-    session("Break", 'blue', BREAK_DURATION, BREAK_BELL_COUNT)
+    session("Break", 'blue', BREAK_DURATION_IN_MINUTE, BREAK_BELL_COUNT)
 
 #sample cmd: python3 python/timer.py -e 1 -m 1 -d 1
 def main():
