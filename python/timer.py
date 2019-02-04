@@ -3,6 +3,7 @@
 
 import time
 import sys
+import os
 import argparse
 from termcolor import colored
 
@@ -10,9 +11,10 @@ EASY_QUESTION_COUNT_PER_SESSION = 3
 MEDIUM_QUESTION_COUNT_PER_SESSION = 2
 HARD_QUESTION_COUNT_PER_SESSION = 1
 
-EASY_QUESTION_DURATION = 15
-MEDIUM_QUESTION_DURATION = 25
-HARD_QUESTION_DURATION = 50
+EASY_QUESTION_DURATION = 0.05
+MEDIUM_QUESTION_DURATION = 0.25
+HARD_QUESTION_DURATION = 0.50
+BREAK_DURATION = 0.10
 
 SESSION_BELL_COUNT = 3
 BREAK_BELL_COUNT = 5
@@ -54,9 +56,12 @@ def countdown(duration):
 def session(title, color, minute, bell_count):
     print(colored('%s (%s minutes) in progress...' % (title, minute), color))
     countdown(minute)
-    ring_bell(bell_count)
+    send_notification(title)
     print(colored('\n%s done!\n' % title, color))
 
+
+def send_notification(title):
+    os.system("terminal-notifier  -title " + title + " -message 'Time is up' -sound default")
 
 def ring_bell(bell_count):
     for i in range(bell_count):
@@ -81,7 +86,7 @@ def hard_session():
 
 
 def break_session():
-    session("Break", 'blue', 10, BREAK_BELL_COUNT)
+    session("Break", 'blue', BREAK_DURATION, BREAK_BELL_COUNT)
 
 #sample cmd: python3 python/timer.py -e 1 -m 1 -d 1
 def main():
