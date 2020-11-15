@@ -14,7 +14,8 @@ from PIL import Image
 
 
 # setup path
-ROOT_PATH = '/Users/cli/per/tmp/'
+#ROOT_PATH = '/Users/cli/per/tmp/'
+ROOT_PATH = '/srv/dev-disk-by-label-NAS/Important/'
 SOURCE_DIR = ROOT_PATH + 'Cliff/iPhone_Camera_backup/'
 DEST_DIR = ROOT_PATH + 'cloud_photo_frame/all_original_jpg/'
 DEST_COMPRESS_DIR = ROOT_PATH + 'cloud_photo_frame/all_compressed_jpg/'
@@ -46,15 +47,18 @@ logger.addHandler(ch)
 1. rsync cliff's iphone folder all jpg to 'all_original_jpgs'
 2. scan all files under 'all_original_jpgs':
     if there is a same name under corresponding path under 'all_compressed_jpg'
-   	else compress it to the corresponding place
+    else compress it to the corresponding place
 """
 
 
 def execute():
     logger.info("Step1. rsync all JPG/jpg to cloud folder")
+    # rsync_cmd = "rsync -avz --include='*/' --include='*.'{JPG,jpg} --exclude='*' --omit-dir-times " + SOURCE_DIR + " " + DEST_DIR # mac
 
-    rsync_cmd = "rsync -avz --include='*/' --include='*.'{JPG,jpg} --exclude='*' " + SOURCE_DIR + " " + DEST_DIR
-    direct_output = subprocess.check_output(rsync_cmd, shell=True)  # could be anything here.
+    rsync_cmd = "rsync -avz --include='*.JPG' --include='*/' --exclude='*' --omit-dir-times " + SOURCE_DIR + " " + DEST_DIR # debian
+    logger.debug("rsync_cmd: " + rsync_cmd)
+    # os.system(rsync_cmd)
+    direct_output = subprocess.check_output(rsync_cmd, shell=True)
     log_subprocess_output(direct_output)
 
     logger.info("Step2. scan all files under '" + DEST_DIR + "' folder")
