@@ -9,7 +9,7 @@ import logging
 import subprocess
 import os
 from os import path
-from PIL import Image
+from PIL import Image, ImageFile
 
 
 
@@ -20,6 +20,8 @@ SOURCE_DIR = ROOT_PATH + 'Cliff/iPhone_Camera_backup/'
 DEST_DIR = ROOT_PATH + 'cloud_photo_frame/all_original_jpg/'
 DEST_COMPRESS_DIR = ROOT_PATH + 'cloud_photo_frame/all_compressed_jpg/'
 LOG_DIR = ROOT_PATH + 'cloud_photo_frame/logs/'
+# image cannot be processed, like
+blacklist = ['2015年11月/IMG_1036.JPG', '2015年11月/IMG_1037.JPG']
 
 dateTimeObj = datetime.now()
 timestampStr = dateTimeObj.strftime("%Y-%m-%d_%H-%M-%S")
@@ -65,6 +67,7 @@ def execute():
     processed_photo_cnt = 0
     error_files = []
 
+
     for header_path, subdirs, files in os.walk(DEST_DIR):
         for name in files:
             # not jpg or JPG
@@ -72,6 +75,16 @@ def execute():
                 continue
 
             original_file_path = os.path.join(header_path, name)
+
+            in_bl = False
+            for bl in blacklist:
+                if original_file_path.endswith(bl):
+                    in_bl = True
+                    break
+            if in_bl:
+                logger.debug("Filename in blacklist so skip it: " + original_file_path)
+                continue
+
             logger.debug("Processing " + original_file_path)
 
             # get relative_filename and check if it exist in DEST_DIR
@@ -84,15 +97,28 @@ def execute():
                 continue
             try:
                 os.makedirs(os.path.dirname(compressed_file_path), exist_ok=True)
+                ImageFile.LOAD_TRUNCATED_IMAGES = True
                 image = Image.open(original_file_path)
-                exif = image.info['exif']
+                if not image:
+                    logger.debug("Failed to open image: " + original_file_path)
+                    continue
+
+                if image.info:
+                    exif = image.info['exif']
+                else:
+                    exif = None
                 image.save(compressed_file_path, overwrite=True, optimize=True, quality=60, exif=exif)
                 processed_photo_cnt += 1
                 logger.debug("Copy and compress done!")
-            except Exception as e:
+            except OSError as oer:
                 error_files.append(original_file_path)
                 logger.debug("Exception happens when processing: " + original_file_path)
-                logger.debug("Error is: " + str(e))
+                logger.debug("Exception is: " + str(oer))
+            except Exception as en:
+                error_files.append(original_file_path)
+                logger.debug("Error happens when processing: " + original_file_path)
+                logger.debug("Error is: " + str(en))
+
 
     logger.info("Processed " + str(processed_photo_cnt) + " photos")
     if error_files:
