@@ -92,12 +92,13 @@ def execute():
             except Exception as e:
                 error_files.append(original_file_path)
                 logger.debug("Exception happens when processing: " + original_file_path)
+                logger.debug("Error is: " + e)
 
     logger.info("Processed " + str(processed_photo_cnt) + " photos")
     if error_files:
         logger.info("Errored photo count:" + str(len(error_files)) + " photos")
         logger.info("They are:\n" + str(error_files))
-        
+
     logger.info("Remove log older than 30 days")
     for f in os.listdir(LOG_DIR):
         if os.stat(os.path.join(LOG_DIR, f)).st_mtime < time.time() - 30 * 86400:
