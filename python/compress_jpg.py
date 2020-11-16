@@ -92,7 +92,7 @@ def execute():
             except Exception as e:
                 error_files.append(original_file_path)
                 logger.debug("Exception happens when processing: " + original_file_path)
-                logger.debug("Error is: " + e)
+                logger.debug("Error is: " + str(e))
 
     logger.info("Processed " + str(processed_photo_cnt) + " photos")
     if error_files:
