@@ -63,6 +63,8 @@ def execute():
 
     logger.info("Step2. scan all files under '" + DEST_DIR + "' folder")
     processed_photo_cnt = 0
+    error_files = []
+
     for header_path, subdirs, files in os.walk(DEST_DIR):
         for name in files:
             # not jpg or JPG
@@ -80,15 +82,22 @@ def execute():
             if path.isfile(compressed_file_path):
                 logger.debug("It has been compressed. so skip it!")
                 continue
-
-            os.makedirs(os.path.dirname(compressed_file_path), exist_ok=True)
-            image = Image.open(original_file_path)
-            exif = image.info['exif']
-            image.save(compressed_file_path, overwrite=True, optimize=True, quality=60, exif=exif)
-            processed_photo_cnt += 1
-            logger.debug("Copy and compress done!")
+            try:
+                os.makedirs(os.path.dirname(compressed_file_path), exist_ok=True)
+                image = Image.open(original_file_path)
+                exif = image.info['exif']
+                image.save(compressed_file_path, overwrite=True, optimize=True, quality=60, exif=exif)
+                processed_photo_cnt += 1
+                logger.debug("Copy and compress done!")
+            except Exception as e:
+                error_files.append(original_file_path)
+                logger.debug("Exception happens when processing: " + original_file_path)
 
     logger.info("Processed " + str(processed_photo_cnt) + " photos")
+    if error_files:
+        logger.info("Errored photo count:" + str(len(error_files)) + " photos")
+        logger.info("They are:\n" + str(error_files))
+        
     logger.info("Remove log older than 30 days")
     for f in os.listdir(LOG_DIR):
         if os.stat(os.path.join(LOG_DIR, f)).st_mtime < time.time() - 30 * 86400:
