@@ -17,6 +17,7 @@ import re
 import logging
 from subprocess import call
 from pathlib import Path
+from datetime import datetime
 
 # prepare properties
 separator = "="
@@ -24,9 +25,6 @@ properties = {}
 
 # http://stackoverflow.com/questions/27945073/how-to-read-properties-file-in-python
 properties_path = '/home/cliff/.secret/properties'
-my_file = Path(properties_path)
-if not my_file.is_file():
-    properties_path = '/home/cliff/.secret/properties'
 
 with open(properties_path) as f:
     for line in f:
@@ -36,15 +34,14 @@ with open(properties_path) as f:
 webhook_url = properties.get('webhook_url')
 
 
-def notify_by_slack(date):
-    message = "Found an earlier date: " + date
+def notify_by_slack(message):
     param = "-X POST -H 'Content-type: application/json' --data \"{'text':'" + \
             message + "'}\" " + webhook_url
     call("curl " + param, shell=True)
 
 
 Log_Format = "%(levelname)s %(asctime)s - %(message)s"
-tmp_log_dir = '~/tmp/'
+tmp_log_dir = '/home/cliff/tmp/'
 logging.basicConfig(
     filename=tmp_log_dir + datetime.now().strftime('check_log_%Y-%m-%d_%H-%M-%S.log'),
     # stream = sys.stdout,
@@ -64,29 +61,36 @@ try:
 
         issue_message_header = 'The latest log under: ' + log_folder_path + ' '
 
+        logger.info("Scanning " + log_folder_path + " ...")
+
         # Get the list of files in the log folder
         files = os.listdir(log_folder_path)
 
         # Filter out any non-log/html files
         log_files = [file for file in files if
                      file.endswith('.log') or file.endswith('.html')]
+        full_path_log_files = []
+        for log_file in log_files:
+            full_path_log_files.append(os.path.join(log_folder_path, log_file))
 
-        if log_files:
+        if full_path_log_files:
             # Get the latest log file
-            latest_log_file = max(log_files, key=os.path.getctime)
+            latest_log_file = max(full_path_log_files, key=os.path.getctime)
 
             # Get the creation time of the latest log file
             file_path = os.path.join(log_folder_path, latest_log_file)
             creation_time = os.path.getctime(file_path)
 
             # Get the current time
-            now = datetime.datetime.now().timestamp()
+            now = datetime.now().timestamp()
 
             # Check if the latest log file was created within one day
             if (now - creation_time) < 86400:
                 logger.info('The latest log file was generated within one day.')
             else:
-                logger.error('The latest log file was generated more than one day ago.')
+                logger.error(
+                    'The latest log file was generated more than one day ago. please '
+                    'check the details')
                 notify_by_slack(issue_message_header + 'is more than 1 day')
 
             with open(file_path, "r") as file:
@@ -95,13 +99,16 @@ try:
             if re.search("Completed successfully", contents):
                 logger.info("The file contains 'Completed successfully'.")
             else:
-                logger.error("The file does not contain 'Completed successfully'.")
+                logger.error(
+                    "The file does not contain 'Completed successfully'.  please "
+                    "check the details")
                 notify_by_slack(
-                    issue_message_header + " does not contain 'Completed "
-                                           "successfully'.")
+                    issue_message_header + " does not contain Completed "
+                                           "successfully.")
 
         else:
-            logger.error('No log files were found in the log folder.')
+            logger.error(
+                'No log files were found in the log folder.  please check the details')
             notify_by_slack(
                 issue_message_header + " : no log found ")
 
@@ -109,5 +116,3 @@ except Exception as e:
     found_issue = True
     logger.error("Errors: ", str(e))
     notify_by_slack("Failed to run check_log script withe error:" + str(e))
-
-
